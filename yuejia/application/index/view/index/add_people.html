@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<form action="{:url('index/index/doAddPeople')}" method="post">
+			<input type="hidden" name="id" id="" value="{$data.id}" />
+			<table border="" cellspacing="" cellpadding="">
+				<tr>
+					<th>请输入你想要加入的人数</th>
+				</tr>
+				<tr>
+					<td><input type="text" name="anumber" id="anumber" value="" /></td>
+				</tr>
+			</table>
+			<input type="submit" value="提交" />
+		</form>
+	</body>
+
+</html>

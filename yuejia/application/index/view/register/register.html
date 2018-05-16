@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<style type="text/css">  
+        table  
+        {  
+            border-collapse: collapse;  
+            margin: 0 auto;  
+            text-align: center;  
+        }  
+        table td, table th  
+        {  
+            border: 1px solid #cad9ea;  
+            color: #666;  
+            height: 30px;  
+        }  
+        table thead th  
+        {  
+            background-color: #CCE8EB;  
+            width: 100px;  
+        }  
+        table tr:nth-child(odd)  
+        {  
+            background: #fff;  
+        }  
+        table tr:nth-child(even)  
+        {  
+            background: #F5FAFA;  
+        }  
+    </style>  
+</head>
+<body>
+<h1>注册</h1>
+<form action="{:url('index/register/doRegister')}" method="post">
+<table border="" cellspacing="" cellpadding="">
+	<tr>
+		<td>用户名：</td>
+		<td><input type="text" name="username" placeholder="用户名长度为2-100"></td>
+	</tr>
+	<tr>
+		<td>密码：</td>
+		<td><input type="password" name="pwd" placeholder="密码最短为6位"></td>
+	</tr>
+	<tr>
+		<td>手机号：</td>
+		<td><input type="text" name="phone" placeholder="请输入正确的手机格式"></td>
+	</tr>
+	<tr>
+		<td>
+			车辆型号：
+		</td>
+		<td>
+			<select id="cartype">
+							<option value="">请选择类别</option>
+							{volist name='car' id='val'}
+							<option value="{$val.id}">{$val.brand}</option>
+							{/volist}
+						</select>
+						<select name="cid" id="carchild">
+							
+						</select></td>
+	</tr>
+	<tr>
+		<td><input type="submit" value="注册"></td>
+		<td><a href="{:url('index/login/login')}">登录</a></td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+			// 就绪函数
+		$(function(){
+			$('#cartype').change(function(){
+				var id = $(this).val();
+				console.log(id);
+
+				$.ajax({
+					type: 'post',
+					url: 'http://localhost/tp5.1/public/index.php/index/car/carTwo/',
+					data:{'id':id},
+					success: function(res){
+						var arr = JSON.parse(res);
+						console.log(arr);
+						var html = '';
+						for(var i=0;i<arr.length;i++){
+							html+='<option value='+arr[i].id+'>'+arr[i].brand+'</option>';
+						}
+						$('#carchild').html(html);
+					}
+				});
+			});
+			//返回后在第二级下拉列表中显示出信息
+		});
+		</script>
+</body>
+</html>

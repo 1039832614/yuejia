@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">  
+        table  
+        {  
+            border-collapse: collapse;  
+            margin: 0 auto;  
+            text-align: center;  
+        }  
+        table td, table th  
+        {  
+            border: 1px solid #cad9ea;  
+            color: #666;  
+            height: 30px;  
+        }  
+        table thead th  
+        {  
+            background-color: #CCE8EB;  
+            width: 100px;  
+        }  
+        table tr:nth-child(odd)  
+        {  
+            background: #fff;  
+        }  
+        table tr:nth-child(even)  
+        {  
+            background: #F5FAFA;  
+        }  
+    </style>  
+		<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+		<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script>
+			$(function() {
+				$("#starttime").datepicker();
+			});
+			$(function() {
+				$("#stoptime").datepicker();
+			});
+			$(function() {
+				$("#gooff").datepicker();
+			});
+			$(function() {
+				$("#gathertime").datepicker();
+			});
+		</script>
+	</head>
+
+	<body>
+		{if condition="!empty($Think.session.user)"}
+		<h1>用户中心</h1>
+		<div id="">
+			<table border="1">
+			<tr>
+				<td>
+					用户名
+				</td>
+				<td>
+					手机号
+				</td>
+				<td>
+					车辆品牌
+				</td>
+				<td>
+					车辆型号
+				</td>
+			</tr>
+			<tr>
+				<td>
+					{$Think.session.user.username}
+				</td>
+				<td>
+					{$Think.session.user.phone}
+				</td>
+				<td>
+					{$brand.brand}
+				</td>
+				<td>
+					{$usercar.brand}
+				</td>
+			</tr>
+		</table>
+		<a href="{:url('index/login/goOut')}" style="float: right;">退出登录</a>
+		{/if}
+		<hr>
+			<h1>发布约驾</h1>
+		</div>
+		
+		<form action="{:url('index/index/sudu')}" method="post">
+			<table border="1">
+				
+				<tr>
+					<td>活动标题</td>
+					<td>
+						<input type="text" name="title">
+					</td>
+				</tr>
+			
+				<tr>
+					<td>发起日期</td>
+					<td>
+						<input type="" name="starttime" id="starttime">
+					</td>
+				</tr>
+				<tr>
+					<td>截止日期</td>
+					<td>
+						<input type="" name="stoptime" id="stoptime">
+					</td>
+				</tr>
+				<tr>
+					<td>邀约人数</td>
+					<td>
+						<input type="text" name="number">
+					</td>
+				</tr>
+				<tr>
+					<td>联系电话</td>
+					<td>
+						<input type="text" name="phone" value="{$Think.session.user.phone}">
+					</td>
+				</tr>
+				<tr>
+					<td>出发地</td>
+					<td>
+						<input type="text" name="departture">
+					</td>
+				</tr>
+				<tr>
+					<td>目的地</td>
+					<td>
+						<input type="text" name="destination">
+					</td>
+				</tr>
+				<tr>
+					<td>行程介绍</td>
+					<td>
+						<input type="text" name="introduce">
+					</td>
+				</tr>
+				<tr>
+					<td>出发时间</td>
+					<td>
+						<input type="text" name="gooff" id="gooff" value="" />
+					</td>
+				</tr>
+				<tr>
+					<td>集合时间</td>
+					<td>
+						<input type="text" name="gathertime" id="gathertime">
+					</td>
+				</tr>
+				<tr>
+					<td>集合地点</td>
+					<td>
+						<input type="text" name="setaddress">
+					</td>
+				</tr>
+					<tr>
+					<td>车辆信息</td>
+					<td>
+						<!--
+                	作者：offline
+                	时间：2018-05-15
+                	描述：车辆二级联动
+                -->
+						<select id="cartype">
+							<option value="">{$brand.brand}</option>
+							{volist name='car' id='val'}
+							<option value="{$val.id}">{$val.brand}</option>
+							{/volist}
+						</select>
+						<select name="cid" id="carchild">
+							<option value="{$usercar.id}">{$usercar.brand}</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="提交" name="" style="float: right;"></td>
+					<td><a href="{:url('index/index/list')}">进入列表页</a></td>
+				</tr>
+			</table>
+			
+		</form>
+		<script type="text/javascript" src="http://localhost/tp5.1/public/static/js/date.js"></script>
+		<script type="text/javascript" src="http://localhost/tp5.1/public/static/js/script.js"></script>
+		<script type="text/javascript">
+			// 就绪函数
+		$(function(){
+			$('#cartype').change(function(){
+				var id = $(this).val();
+				console.log(id);
+
+				$.ajax({
+					type: 'post',
+					url: 'http://localhost/tp5.1/public/index.php/index/car/carTwo/',
+					data:{'id':id},
+					success: function(res){
+						var arr = JSON.parse(res);
+						console.log(arr);
+						var html = '';
+						for(var i=0;i<arr.length;i++){
+							html+='<option value='+arr[i].id+'>'+arr[i].brand+'</option>';
+						}
+						$('#carchild').html(html);
+					}
+				});
+			});
+			//返回后在第二级下拉列表中显示出信息
+		});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,27 @@
+一、数据库设计
+1.预约驾驶信息表
+reserve_drive
+id 主键
+title 活动标题
+??car_brand 车辆品牌
+??car_type 车型
+cid 车辆id
+starttime 发起日期
+stoptime 截止日期
+number 预约人数
+phone 联系电话
+departure 出发地
+destination 目的地
+introduce 行程介绍
+go_off 出发时间
+gather_time 集合时间
+set_address 集合地址
+2.车辆信息表
+id 主键
+brand 车辆品牌
+type 车型
+3.用户信息表
+id 主键
+username 用户名
+pwd 密码
+phone 联系电话

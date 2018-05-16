@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">  
+        table  
+        {  
+            border-collapse: collapse;  
+            margin: 0 auto;  
+            text-align: center;  
+        }  
+        table td, table th  
+        {  
+            border: 1px solid #cad9ea;  
+            color: #666;  
+            height: 30px;  
+        }  
+        table thead th  
+        {  
+            background-color: #CCE8EB;  
+            width: 100px;  
+        }  
+        table tr:nth-child(odd)  
+        {  
+            background: #fff;  
+        }  
+        table tr:nth-child(even)  
+        {  
+            background: #F5FAFA;  
+        }  
+    </style>  
+	</head>
+	<body>
+		<h1>约驾列表页</h1>
+		{if condition="!empty($Think.session.user)"}
+		<table border="1" style="float: right;">
+			<tr>
+				<td>
+					用户名
+				</td>
+				<td>
+					手机号
+				</td>
+			</tr>
+			<tr>
+				<td>
+					{$Think.session.user.username}
+				</td>
+				<td>
+					{$Think.session.user.phone}
+				</td>
+			</tr>
+			<tr>
+				
+				<th><a href="{:url('index/index/index')}">发布约驾信息</a></th>
+			</tr>
+		</table>
+		{/if}
+		<table border="" cellspacing="" cellpadding="">
+			
+			<tr>
+				<th>活动标题</th>
+				<th>活动发起人</th>
+				<th>车辆信息</th>
+				<th>发起日期</th>
+				<th>截止日期</th>
+				<th>预约人数</th>
+				<th>联系方式</th>
+				<th>出发地</th>
+				<th>目的地</th>
+				<th>行程介绍</th>
+				<th>出发时间</th>
+				<th>集合时间</th>
+				<th>集合地址</th>
+				<th>约驾</th>
+			</tr>
+			{volist name="data" id="b"}
+			<tr>
+				<td>{$b.title}</td>
+				<td>{$b.username}</td>
+				<td>
+					{$b.brand}
+				</td>
+				<td>
+					{$b.starttime}
+				</td>
+				<td>
+					{$b.stoptime}
+				</td>
+				<td>
+					{$b.number}
+				</td>
+				<td>
+					{$b.phone}
+				</td>
+				<td>
+					{$b.departture}
+				</td>
+				<td>
+					{$b.destination}
+				</td>
+				<td>
+					{$b.introduce}
+				</td>
+				<td>
+					{$b.gooff}
+				</td>
+				<td>
+					{$b.gathertime}
+				</td>
+				<td>
+					{$b.setaddress}
+				</td>
+				<td>
+					{if condition="$Think.session.user.username==$b.username"}
+					您是约驾发起者
+					{else/}
+					{if condition="$b.number<$b.anumber||$b.number==$b.anumber"}
+					该活动人数已满
+					{else/}
+					<a href="{:url('index/index/addPeople',['id'=>$b['id']])}">一起约驾</a>
+					{/if}
+					{/if}
+				</td>
+			</tr>
+			{/volist}
+		</table>
+		
+	</body>
+</html>

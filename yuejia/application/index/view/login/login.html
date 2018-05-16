@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">  
+        table  
+        {  
+            border-collapse: collapse;  
+            margin: 0 auto;  
+            text-align: center;  
+        }  
+        table td, table th  
+        {  
+            border: 1px solid #cad9ea;  
+            color: #666;  
+            height: 30px;  
+        }  
+        table thead th  
+        {  
+            background-color: #CCE8EB;  
+            width: 100px;  
+        }  
+        table tr:nth-child(odd)  
+        {  
+            background: #fff;  
+        }  
+        table tr:nth-child(even)  
+        {  
+            background: #F5FAFA;  
+        }  
+    </style>  
+</head>
+<body>
+	<div id="" style="width: 250px;height: 250px;background-color: #008B8B;">
+		<h1>登录</h1>
+<form action="{:url('index/login/doLogin')}" method="post">
+<table border="" cellspacing="" cellpadding="">
+	<tr>
+		<td>用户名：</td>
+		<td><input type="text" name="username" placeholder="请输入已有用户名"></td>
+	</tr>
+	<tr>
+		<td>密码：</td>
+		<td><input type="password" name="pwd" placeholder="请输入匹配的密码"></td>
+	</tr>
+	<tr>
+		<td><input type="submit" name="" id="" value="登录" /></td>
+		<td><a href="{:url('index/register/register')}" >注册</a></td>
+	</tr>
+</table>
+</form>
+	</div>
+
+</body>
+</html>
