@@ -12,7 +12,7 @@ class User extends Validate
 		// 字段名1 => '规则1|规则2|....'
 		'username'   => 'require|length:2,100|unique:user',
 		'pwd'   => 'require|min:6',
-		'phone'     => "require|number|length:11",
+		'phone'     => "require|number|length:11|mobile",
 	];
 	
 	// 提示消息
@@ -24,6 +24,6 @@ class User extends Validate
 		'pwd.min'       => '密码最短是6位',
 		'phone.require' => '手机号必须填写',
 		'phone.number'  => '手机号请输入数字',
-  		'phone.regex'       => '手机号非法',	
+  		'phone.mobile'  => '手机号非法',	
 	];
 }
